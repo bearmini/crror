@@ -19,12 +19,16 @@ ARGF.each do |line|
       colored_line = bold + tokens[0] + ' ' + red + tokens[1..-1].join(' ') + reset
     elsif tokens[1] == 'error:'
       colored_line = bold + tokens[0..1].join(' ') + ' ' + red + tokens[2..-1].join(' ') + reset
+    elsif tokens[1] == 'fatal' && tokens[2] == 'error:'
+      colored_line = bold + tokens[0..2].join(' ') + ' ' + red + tokens[3..-1].join(' ') + reset
     elsif tokens[1] == 'warning:'
       colored_line = bold + tokens[0..1].join(' ') + ' ' + yellow + tokens[2..-1].join(' ') + reset
     elsif tokens[1] == 'In' && tokens[2] == 'function'
       colored_line = tokens[0..2].join(' ') + ' ' + magenta + tokens[3..-1].join(' ') + reset
     elsif tokens[1] == 'In' && tokens[2] == 'member' && tokens[3] == 'function'
       colored_line = tokens[0..3].join(' ') + ' ' + magenta + tokens[4..-1].join(' ') + reset
+    elsif tokens[0] =~ /make(?:\[[0-9]\]+)?:/ && tokens[1] == '***'
+      colored_line = bold + red + line.chomp + reset
     else
       colored_line = line
     end
