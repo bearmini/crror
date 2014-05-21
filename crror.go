@@ -4,7 +4,7 @@ import (
 	"bufio"
 	"flag"
 	"fmt"
-	//  "github.com/andrew-d/go-termutil"
+	"github.com/andrew-d/go-termutil"
 	"log"
 	"os"
 	"regexp"
@@ -74,9 +74,14 @@ func main() {
 		input = bufio.NewReader(f)
 	}
 
+	tty := termutil.Isatty(os.Stdout.Fd())
 	for {
 		line, err := input.ReadString('\n')
-		fmt.Print(Colorize(line))
+		if tty {
+			fmt.Print(Colorize(line))
+		} else {
+			fmt.Print(line)
+		}
 		if err != nil {
 			break
 		}

@@ -18,12 +18,16 @@ self=`__readlink_f $0`
 
 d=$( cd $( dirname "$self" ); pwd )
 
+if [ ! -f $d/crror.bin ]; then
+    sh $d/build.sh
+fi
+
 command -v $1 >/dev/null 2>&1
 if [ $? -eq 0 ]; then
-    $* 2>&1 | $d/crror.rb
+    $* 2>&1 | $d/crror.bin
     exit ${PIPESTATUS[0]}
 elif [ -e $1 ]; then
-    $d/crror.rb $*
+    $d/crror.bin $*
 else
     echo 'Command or file is not found.'
     exit 1
