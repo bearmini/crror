@@ -3,6 +3,7 @@
 .bundle
 .config
 coverage
+crror.bin
 InstalledFiles
 lib/bundler/man
 pkg

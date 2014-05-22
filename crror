@@ -19,7 +19,7 @@ self=`__readlink_f $0`
 d=$( cd $( dirname "$self" ); pwd )
 
 if [ ! -f $d/crror.bin ]; then
-    sh $d/build.sh
+    bash $d/build.sh
 fi
 
 command -v $1 >/dev/null 2>&1
